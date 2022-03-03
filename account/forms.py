@@ -19,3 +19,22 @@ class ExamControlBoardSignUpForm(UserCreationForm):
         ECB_object.phone = self.cleaned_data.get('phone')
         ECB_object.save()
         return user
+    
+class AdminSignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    phone = forms.CharField(max_length=20,required=False)
+   
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+    
+    @transaction.atomic
+    def save(self):
+        user = super().save(commit=False)
+        user.is_admin = True
+        user.email = self.cleaned_data.get('email')
+        user.save()
+        admin_object = Admin.objects.create(user=user)
+        admin_object.phone = self.cleaned_data.get('phone')
+        admin_object.save()
+        return user
