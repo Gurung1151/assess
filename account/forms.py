@@ -60,3 +60,10 @@ class TeacherSignUpForm(UserCreationForm):
      teacher_object.address = self.cleaned_data.get('address')
      teacher_object.save()
      return user
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=200)
+    password = forms.CharField(max_length=200)
+
+    class Meta : 
+        model = User
