@@ -1,0 +1,26 @@
+<h1>{{request.user.username}}</h1>
+<h1>{{class.teacher}}</h1>
+<table>
+    <tr>
+        <th>Year</th>
+        <th>Part</th>
+        <th>Batch</th>
+        <th>Group</th> 
+        <th>Subject</th>
+        <th>Submission status</th>
+    </tr>
+    <tr>
+        {% for class in classes %}
+        {% if class.teacher.user.username == request.user.username %}
+        <td>{{class.year}}</td>
+        <td>{{class.part}}</td>
+        <td>{{class.batch}}</td>
+        <td>{{class.group}}</td>
+        <td>{{class.subjectName}}</td>
+        <td>{{class.is_submitted}}</td>
+        {% endif %}
+        {% endfor %}
+
+    </tr>
+         
+</table>

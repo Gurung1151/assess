@@ -1,0 +1,41 @@
+<h1>Admin profile</h1>
+<ul>
+    <li>homepage</li>
+    <li>profile</li>
+    <li>classes</li>
+    <li>teachers</li>
+    <li>Assessments</li>
+    <li>history</li>
+</ul>
+
+<h1>Hello, these are the classes.</h1>
+<hr>
+<h1>Classes</h1>
+<a href = " {% url 'create_Class'  %}">ADD PROJECT</a>
+<table>
+    <tr>
+        <th>Year</th>
+        <th>Part</th>
+        <th>Batch</th>
+        <th>Group</th> 
+        <th>Submission status</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    {%  for class in classes %}
+       <tr>
+           <td> {{class.year}} </td>
+           <td> {{class.part}} </td>
+           <td> {{class.batch}} </td>
+           <td> {{class.group}} </td>
+           <td> {{class.is_submitted}} </td>
+           <td><a href ="{% url 'class' class.ID %}">view details</a></td>
+           <td><a href = "{% url 'update_Class' class.ID %}">edit</a></td>
+           <td><a href = "{% url 'delete_Class' class.ID %}">delete</a></td>
+       </tr>
+    {% endfor %}
+        
+</table>
+
+    

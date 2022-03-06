@@ -3,7 +3,9 @@ from django.contrib.auth import login,authenticate,logout
 from django.views.generic import CreateView
 
 from .forms import ExamControlBoardSignUpForm, AdminSignUpForm, TeacherSignUpForm,LoginForm
-from .models import User,ExamControlBoard,Admin
+from .models import Teacher, User,ExamControlBoard,Admin
+
+import classes
 # Create your views here.
 
 # function views
@@ -17,11 +19,15 @@ def admin_homepage(request):
     #context = {'adminObj':adminObj}
     return render(request,'account/admin/admin_homepage.html')
 
+def admin_showTeachers(request):
+    teachers = Teacher.objects.all()
+    context = {'teachers':teachers}
+    return render(request, 'account/admin/admin_showTeachers.html',context)
+
 # teacher's portion
 
 def teacher_homepage(request):
-    #adminObj = Admin.objects.get(id=pk)
-    #context = {'adminObj':adminObj}
+
     return render(request,'account/teacher/teacher_homepage.html')
 
 def teacher_profile(request,pk):

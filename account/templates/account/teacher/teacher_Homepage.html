@@ -1,8 +1,11 @@
+{% load static %}
 <h1>Teacher Home page</h1>
+
+<p>{{request.user.username}}</p>
 <ul>
     <li>homepage</li>
     <li>profile</li>
-    <li>classes</li>
+    <li><a href="{% url 'teacherClasses' %}">classes</a></li>
     <li>assessments</li>
     <li>history</li>
 </ul>

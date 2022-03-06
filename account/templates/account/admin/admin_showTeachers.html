@@ -2,11 +2,29 @@
 <ul>
     <li>homepage</li>
     <li>profile</li>
-    <li>classes</li>
-    <li>teachers</li>
+    <li><a href="{% url 'classes' %}">classes</a></li>
+    <li><a href="{% url 'admin_showTeachers' %}">teachers</a></li>
     <li>Assessments</li>
     <li>history</li>
 </ul>
 
-<h1>show every teacher</h1>
-<h3>has option to add new teacher</h3>
+<hr>
+<h1>Teachers</h1>
+<a href = " {% url 'registerTeacher'  %}">Teacher</a>
+<table>
+    <tr>
+        <th>name</th>
+        <th>phone</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    {%  for teacher in teachers %}
+       <tr>
+           <td> {{teacher.user.username}} </td>
+           <td> {{teacher.phone}} </td>
+           
+       </tr>
+    {% endfor %}
+        
+</table>
