@@ -1,4 +1,6 @@
-<h1>Admin profile</h1>
+<!DOCTYPE html>
+{% comment %}
+<!-- <h1>Admin profile</h1>
 <ul>
     <li>homepage</li>
     <li>profile</li>
@@ -11,7 +13,7 @@
 <h1>Hello, these are the classes.</h1>
 <hr>
 <h1>Classes</h1>
-<a href = " {% url 'create_Class'  %}">ADD PROJECT</a>
+<a href = " {#{% url 'create_Class'  %}#}">ADD PROJECT</a>
 <table>
     <tr>
         <th>Year</th>
@@ -38,4 +40,161 @@
         
 </table>
 
+     -->
+{% endcomment %}
+
+{% load static %}
     
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/admin_classes.css' %}" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <article class="flex flex-row">
+      <section
+        class="flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
+      >
+        <!-- centralize profile icon -->
+        <div class="flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-24 h-24 mt-9"
+            style="enable-background: new"
+            viewbox="0 0 45.532 45.532"
+            xml:space="preserve"
+          >
+            <path
+              d="M22.766.001C10.194.001 0 10.193 0 22.766s10.193 22.765 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 .001 15.06 7.53 7.53 0 0 1-.001-15.06zm-.005 32.771a16.708 16.708 0 0 1-10.88-4.012 3.209 3.209 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.702 16.702 0 0 1-10.881 4.013z"
+            />
+          </svg>
+        </div>
+        <section
+          class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
+        >
+          <a href="#">Dashboard</a>
+          <a href="#">Classes</a>
+          <a href="#">Teachers</a>
+          <a href="#">Assignments</a>
+        </section>
+        <section class="mx-auto mb-11">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="inline-block w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
+          </svg>
+          Logout
+        </section>
+      </section>
+      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+        <h1 class="mt-12 text-6xl">Classes</h1>
+        <div class="flex flex-col mt-[8.5rem]">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full">
+                  <thead class="border-b">
+                    <tr>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Year
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Part
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Group
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Batch
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Subject
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Teacher
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        View
+                      </th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for class in classes %}
+
+                    <tr class="border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        {{class.year}}
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        {{class.part}}
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        {{class.group}}
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        {{class.batch}}
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        {{class.subjectName}}
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        {{class.teacher.user.username}}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </body>
+</html>

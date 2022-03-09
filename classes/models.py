@@ -69,7 +69,6 @@ class AssessmentMarks(models.Model):
     ('practical','Prac'),
    
     )
-
     getClass = models.OneToOneField(classData,on_delete=models.CASCADE, primary_key=True)
     #teacher 
     fullMarks = models.IntegerField(null=False)
@@ -80,4 +79,7 @@ class StudentData(models.Model):
     Dept = models.CharField(max_length=3,null=True)
     Roll = models.CharField(max_length=3,null=True)
     Name = models.CharField(max_length=100,null=True)
+    Section = models.CharField(max_length=3,null=True)
+    def __str__ (self):
+        return self.Name
 

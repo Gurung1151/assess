@@ -11,11 +11,14 @@ urlpatterns = [
     path('register/Teacher/',views.TeacherSignUpView.as_view(),name = 'registerTeacher'),
     
     path('login/',views.loginPage, name='loginPage'),
+    path('logout/',views.logoutPage, name='logoutPage'),
 
     path('Admin/admin_homepage/',views.admin_homepage, name = 'admin_homepage'),
     path('Teacher/teacher_homepage/',views.teacher_homepage, name = 'teacher_homepage'),
     path('Exam_control_board/ECB_homepage/',views.ECB_homepage, name = 'ECB_homepage'),
 
     path('Admin/teachers/',views.admin_showTeachers,name = 'admin_showTeachers'),
+
+    path('Admin/teacher/profile/<str:pk>',views.teacher_profile,name='teacher_profile'),
 
 ]

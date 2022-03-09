@@ -23,7 +23,7 @@
        <tr>
            <td> {{teacher.user.username}} </td>
            <td> {{teacher.phone}} </td>
-           
+           <td><a href="{% url 'teacher_profile' teacher.user.id %}">view</a></td>
        </tr>
     {% endfor %}
         

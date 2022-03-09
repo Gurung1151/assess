@@ -16,7 +16,7 @@ class Teacher(models.Model):
     address =models.CharField(max_length=200, null = True, blank =True)
     bio = models.TextField(null = True, blank = True)
     portfolio_link = models.CharField(max_length=200,null =True, blank =True)
-    profile_pic = models.ImageField(null = True, blank = True, default = "user-default.png") 
+    profile_pic = models.ImageField(null = True, blank = True, default="profiles/user-default.png", upload_to="profiles/") 
 
     def __str__(self):
         return self.user.username

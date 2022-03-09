@@ -4,13 +4,17 @@ from django.views.generic import CreateView
 
 from .forms import ExamControlBoardSignUpForm, AdminSignUpForm, TeacherSignUpForm,LoginForm
 from .models import Teacher, User,ExamControlBoard,Admin
+from classes.models import StudentData
 
 import classes
 # Create your views here.
 
 # function views
 def mainpage(request):
-    return render(request,'main.html')
+    text = 'Hello, this is temporary main page'
+    students = StudentData.objects.all()
+    context = {'text':text,'students':students}
+    return render(request,'main.html',context)
 
 # admin's portion
 
@@ -31,7 +35,9 @@ def teacher_homepage(request):
     return render(request,'account/teacher/teacher_homepage.html')
 
 def teacher_profile(request,pk):
-    pass
+    teacher = Teacher.objects.get(user_id=pk)
+    context = {'teacher':teacher}
+    return render(request,'account/teacher/teacher_profile.html',context)
 
 # ECB's portion
 def ECB_homepage(request):
@@ -41,6 +47,7 @@ def ECB_homepage(request):
 
 
 def loginPage(request):
+    
     form = LoginForm(request.POST)
     msg=None
     if request.method == 'POST':
@@ -67,6 +74,10 @@ def loginPage(request):
             msg = 'error validating form'
     context = {'form':form,'msg':msg }
     return render(request, 'account/loginPage.html',context)
+
+def logoutPage(request):
+    logout(request)
+    return redirect('loginPage')
 
 
 # class views
