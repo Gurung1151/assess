@@ -44,7 +44,7 @@ def Data():
     #         "Name": x[3]}} for x in StdList]
     
     SecList =[{
-        "model":"classes.Section",
+        "model":"classes.classData",
         "pk":SecList.index(x)+1 ,
         "fields":{ 
             "batch": x[0], 

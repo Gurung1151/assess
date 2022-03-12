@@ -1,8 +1,10 @@
-<h1>Admin profile</h1>
+<!DOCTYPE html>
+{%comment%}
+<!-- <h1>Admin profile</h1>
 <ul>
     <li>homepage</li>
     <li>profile</li>
-    <li><a href="{% url 'classes' %}">classes</a></li>
+    <li><a href="{% url 'classes' user.id %}">classes</a></li>
     <li><a href="{% url 'admin_showTeachers' %}">teachers</a></li>
     <li>Assessments</li>
     <li>history</li>
@@ -27,4 +29,110 @@
        </tr>
     {% endfor %}
         
-</table>
+</table> -->
+{%endcomment%}
+{%load static%}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/admin_teachers.css' %}" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <article class="flex flex-row">
+      <section
+        class="relative flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
+      >
+        <!-- centralize profile icon -->
+        <div class="flex items-center justify-center">
+          <!-- <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-24 h-24 mt-9"
+            style="enable-background: new"
+            viewbox="0 0 45.532 45.532"
+            xml:space="preserve"
+          >
+            <path
+              d="M22.766.001C10.194.001 0 10.193 0 22.766s10.193 22.765 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 .001 15.06 7.53 7.53 0 0 1-.001-15.06zm-.005 32.771a16.708 16.708 0 0 1-10.88-4.012 3.209 3.209 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.702 16.702 0 0 1-10.881 4.013z"
+            />
+          </svg> -->
+          <div class="w-32 h-32 mt-9">
+            <img
+              class="inset-0 object-cover object-center w-0.5 h-0.5 rounded-full"
+              src="{{user.profile_pic.url}}"
+              alt=""
+            />
+          </div>
+        </div>
+        <section
+          class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
+        >
+          <a href="{%url 'admin_homepage' %}">Dashboard</a>
+          <a href="{% url 'classes' user.user.id %}" class="">Classes</a>
+          <div class="w-32 py-2 text-center bg-white rounded-xl">
+            <a href="#" class="text-2xl font-semibold tracking-wider"
+              >Teachers</a
+            >
+          </div>
+          <a href="#">Assessments</a>
+        </section>
+        <section class="mx-auto mb-11">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="inline-block w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
+          </svg>
+          Logout
+        </section>
+      </section>
+      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+        <h1 class="mt-20 mb-20 text-6xl">Teachers</h1>
+        {% for teacher in teachers %}
+        <div class="grid grid-cols-4 gap-6 " style="display:inline-block;float:left">
+          <div
+            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-10 w-10 inset-0 object-cover object-center"
+          >
+            <a href="#">
+              <img class="mx-auto rounded-lg" src="{{teacher.profile_pic.url}}" alt="" />
+            </a>
+            <div class="p-5">
+              <a href="#">
+                <h5
+                  class="mb-2 text-2xl font-bold tracking-tight text-center text-gray-900 dark:text-white"
+                >
+                  {{teacher.user.username}}
+                </h5>
+              </a>
+              <p class="px-3 mb-3 font-normal text-gray-700 dark:text-gray-400">
+                Here are the biggest enterprise technology acquisitions of 2021
+                so far, in reverse chronological order.
+              </p>
+              <div
+                class="flex items-center justify-center bg-green-500 rounded-lg"
+              >
+                <a
+                  href="{% url 'admin_teacher_profile' teacher.user.id %}"
+                  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black rounded-lg"
+                >
+                  View
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> 
+         {%endfor%}
+      </section>
+    </article>
+  </body>
+</html>

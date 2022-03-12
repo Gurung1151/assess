@@ -468,6 +468,90 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.inset-0 {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.left-7 {
+  left: 1.75rem;
+}
+
+.right-96 {
+  right: 24rem;
+}
+
+.right-2 {
+  right: 0.5rem;
+}
+
+.right-10 {
+  right: 2.5rem;
+}
+
+.top-10 {
+  top: 2.5rem;
+}
+
+.right-14 {
+  right: 3.5rem;
+}
+
+.right-7 {
+  right: 1.75rem;
+}
+
+.right-8 {
+  right: 2rem;
+}
+
+.right-16 {
+  right: 4rem;
+}
+
+.right-28 {
+  right: 7rem;
+}
+
+.right-32 {
+  right: 8rem;
+}
+
+.right-40 {
+  right: 10rem;
+}
+
+.right-60 {
+  right: 15rem;
+}
+
+.right-72 {
+  right: 18rem;
+}
+
+.right-\[20rem\] {
+  right: 20rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -573,6 +657,30 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 23rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-\[\.15rem\] {
+  margin-top: .15rem;
+}
+
+.mt-\[15rem\] {
+  margin-top: 15rem;
+}
+
+.mt-\[\.1rem\] {
+  margin-top: .1rem;
+}
+
+.mt-\[\.05rem\] {
+  margin-top: .05rem;
+}
+
+.mt-14 {
+  margin-top: 3.5rem;
+}
+
 .block {
   display: block;
 }
@@ -623,6 +731,26 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-96 {
   height: 24rem;
+}
+
+.h-32 {
+  height: 8rem;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
+.h-11 {
+  height: 2.75rem;
 }
 
 .w-1\/6 {
@@ -677,8 +805,56 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 8rem;
 }
 
+.w-2\/4 {
+  width: 50%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-4\/5 {
+  width: 80%;
+}
+
+.w-\[71\%\] {
+  width: 71%;
+}
+
+.w-\[79\%\] {
+  width: 79%;
+}
+
+.w-\[85\%\] {
+  width: 85%;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-11 {
+  width: 2.75rem;
+}
+
+.w-\[50\%\] {
+  width: 50%;
+}
+
+.w-28 {
+  width: 7rem;
+}
+
 .min-w-full {
   min-width: 100%;
+}
+
+.max-w-\[50\%\] {
+  max-width: 50%;
 }
 
 .flex-grow {
@@ -759,6 +935,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 0.25rem;
 }
 
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -816,6 +1000,31 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
+.bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+}
+
+.bg-green-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
+.bg-slate-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -829,12 +1038,30 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-to: #16a34a;
 }
 
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
 
 .p-10 {
   padding: 2.5rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
 }
 
 .px-\[3\.5rem\] {
@@ -877,6 +1104,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1rem;
 }
 
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -917,6 +1154,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.75rem;
 }
 
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .font-medium {
   font-weight: 500;
 }
@@ -929,6 +1181,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 700;
 }
 
+.font-semibold {
+  font-weight: 600;
+}
+
 .italic {
   font-style: italic;
 }
@@ -939,6 +1195,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .tracking-wider {
   letter-spacing: 0.05em;
+}
+
+.tracking-wide {
+  letter-spacing: 0.025em;
 }
 
 .text-gray-900 {

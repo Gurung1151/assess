@@ -17,8 +17,8 @@ urlpatterns = [
     path('Teacher/teacher_homepage/',views.teacher_homepage, name = 'teacher_homepage'),
     path('Exam_control_board/ECB_homepage/',views.ECB_homepage, name = 'ECB_homepage'),
 
-    path('Admin/teachers/',views.admin_showTeachers,name = 'admin_showTeachers'),
-
-    path('Admin/teacher/profile/<str:pk>',views.teacher_profile,name='teacher_profile'),
+   path('Admin/teachers/<str:pk>/',views.admin_showTeachers,name = 'admin_showTeachers'),
+   path('Admin/assessments/',views.admin_assessments,name = 'admin_assessments'),
+   path('Admin/teacher/profile/<str:pk>/',views.admin_teacher_profile,name='admin_teacher_profile'),
 
 ]

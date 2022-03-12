@@ -6,9 +6,12 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import classData
-from .forms import classForm
+from .models import StudentData, classData,AssessmentMarks
+from .forms import classForm, AssessmentForm
+from account.models import Admin
 # Create your views here.
+
+
 
 # def classes(request) :
 #     return HttpResponse("These are classes.")
@@ -18,9 +21,10 @@ from .forms import classForm
 
 
 # function to render the given html page
-def classes(request):
+def classes(request,pk):
+    user = Admin.objects.get(user_id=pk)
     classes = classData.objects.all()
-    context = {'classes':classes}
+    context = {'classes':classes,'user':user}
     return render(request, 'classes/classes.html',context) 
 
 def getClass(request,pk):
@@ -36,7 +40,7 @@ def createClass(request):
         form = classForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('classes')
+            return redirect('admin_homepage')
 
     context = {'form':form}
     return render(request,'classes/class_form.html',context)
@@ -64,6 +68,35 @@ def deleteClass(request,pk):
     return render(request,'classes/delete_template.html',context)
 
 def teacherClasses(request):
-    classes = classData.objects.all()
-    context = {'classes':classes}
+    classes = AssessmentMarks.objects.all()
+    students = StudentData.objects.all()
+    context = {'classes':classes,'students':students}
     return render(request,'classes/teacherClasses.html',context)
+
+def view_assessment(request,pk):
+    marksheet = AssessmentMarks.objects.get(getClass_id = pk)
+    students = StudentData.objects.all()
+    form = AssessmentForm()
+    if request.method=='POST':
+        form = AssessmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            marksheet.is_submitted = True
+    context = {'marksheet':marksheet,'students':students,'form':form}
+    return render(request,'classes/view_assessment.html',context)
+
+def assessment(request):
+    form =AssessmentForm()
+    if request.method == 'POST':
+        form = AssessmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+    context = {'form':form}
+    return render(request,'classes/assessment.html',context)
+
+def view(request,pk):
+    marks = AssessmentMarks.objects.get(getClass_id=pk)
+    students = StudentData.objects.all()
+    context = {'marks':marks,'students':students}
+    return render(request,'classes/view.html',context)
