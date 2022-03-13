@@ -1,18 +1,8 @@
 <!DOCTYPE html>
-{%comment%}
-<!-- {% load static %}
-<h1>Teacher Home page</h1>
 
-<p>{{request.user.username}}</p>
-<ul>
-    <li>homepage</li>
-    <li>profile</li>
-    <li><a href="{% url 'teacherClasses' %}">classes</a></li>
-    <li>assessments</li>
-    <li>history</li>
-</ul> -->
-{%endcomment%}
 {%load static%}
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -73,7 +63,312 @@
           Logout
         </section>
       </section>
-      <section class="flex-grow h-screen overflow-auto px-[3.5rem]"></section>
+      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+        <div class="flex flex-col mt-[8.5rem]">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full">
+                  <thead class="border-b">
+                    <tr>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Year
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Part
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Group
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Batch
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Teacher
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Subject
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      ></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        1
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Mark
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Otto
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        @mdo
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        bishant
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        bishant
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        bishant
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        <div
+                          class="w-16 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
+                        >
+                          VIEW
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="bg-white border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        2
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Jacob
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Thornton
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        @fat
+                      </td>
+                    </tr>
+                    <tr class="bg-white border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        3
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Larry
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Wild
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        @twitter
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col mt-[8.5rem]">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full">
+                  <thead class="border-b">
+                    <tr>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Year
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Part
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Group
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Batch
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Teacher
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      >
+                        Subject
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-4 font-medium text-left text-gray-900"
+                      ></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        1
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Mark
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Otto
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        @mdo
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        bishant
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        bishant
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        bishant
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        <div
+                          class="w-16 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
+                        >
+                          VIEW
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="bg-white border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        2
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Jacob
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Thornton
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        @fat
+                      </td>
+                    </tr>
+                    <tr class="bg-white border-b">
+                      <td
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        3
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Larry
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        Wild
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                        @twitter
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </article>
   </body>
 </html>
