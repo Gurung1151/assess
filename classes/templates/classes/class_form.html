@@ -1,6 +1,10 @@
 
 <!DOCTYPE html>
-    
+    <form method="POST">
+      {%csrf_token%}
+      {{form.as_p}}
+      <input type="submit" value="submit">
+    </form>
 <!-- <h1>
         Class form
     </h1>
@@ -10,7 +14,7 @@
         
         
         <input type = "submit">
-    </form> -->
+    </form> 
  
     {%load static%}
     <html lang="en">
@@ -26,9 +30,9 @@
         <article class="flex flex-row">
           <section
             class="flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
-          >
+          > -->
             <!-- centralize profile icon -->
-            <div class="flex items-center justify-center">
+            <!-- <div class="flex items-center justify-center">
               
               <div class="w-32 h-32 mt-9">
                 <img
@@ -170,7 +174,7 @@
                           >Teacher</label
                         >
                         {{form.teacher}}
-                      </div>
+                      </div> -->
 
                       <!-- <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                         <label
@@ -214,7 +218,7 @@
                           class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
                         />
                       </div> -->
-                    </div>
+                    <!-- </div>
                   </div>
                   <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                     <button
@@ -232,4 +236,4 @@
       </section>
     </article>
   </body>
-</html>
+</html> -->

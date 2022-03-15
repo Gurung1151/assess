@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.views.generic import CreateView
 # Create your views here.
 
 from django.http import HttpResponse
@@ -32,6 +32,11 @@ def getClass(request,pk):
      context = {'classObj':classObj}
      return render(request, 'classes/single_class.html', context)
     
+# class createClass(CreateView):
+#     model = classData
+#     form_class = classForm
+#     template_name = 'classes/class_form.html'
+
 
 def createClass(request):
     form = classForm()
