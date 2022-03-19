@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-{%load static%}
+{% load static%}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="{%static 'css/admin_approvals.css'%}" rel="stylesheet" />
+    <link href="{% static 'css/admin_assesments.css'%}" rel="stylesheet" />
     <title>Document</title>
   </head>
   <body>
-    
     <article class="flex flex-row">
       <section
         class="relative flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
@@ -38,12 +37,83 @@
         <section
           class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
         >
-          <a href="{%url 'admin_homepage'%}">Dashboard</a>
-          <a href="{% url 'classes' user.id%}" class="">Classes</a>
-          <a href="{% url 'admin_showTeachers' user.id%}">Teachers</a>
-          <a href="{% url 'admin_assessments'%}">Assessments</a>
+          <a href="{% url 'admin_homepage' %}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10 6H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-5m-4 0V5a2 2 0 1 1 4 0v1m-4 0a2 2 0 1 0 4 0m-5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 0 0-2.83 2M15 11h3m-3 4h2"
+              /></svg>
+              Dashboard
+          </a>
+          <!-- dashboard: identifiation -->
+          <a href="#" class="">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mr-1 mt-[.15rem]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"
+              />
+            </svg>
+            <!-- classes:user-group -->
+            <!-- teachers:user -->
+            <!-- assignments: book-open -->
+            Classes
+          </a>
+          <a href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm-4 7a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7z"
+              /></svg
+            >Teachers</a
+          >
+          <div class="h-12 py-2 text-center bg-white w-52 rounded-xl">
+            <a href="#" class="text-2xl font-semibold tracking-wider">
+              <div class="flex flex-row lg:ml-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="inline-block w-6 h-6 mt-[.12rem] mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+                Assesments
+              </div></a
+            >
+          </div>
         </section>
         <section class="mx-auto mb-11">
+          <a href="{% url 'logoutPage'%}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="inline-block w-6 h-6"
@@ -58,10 +128,12 @@
               d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
             />
           </svg>
-          <a href="{% url 'logoutPage' %}">Logout</a>
+          Logout
+        </a>
         </section>
-      </section> <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
-        <h1 class="mt-20 text-6xl">Approvals</h1>
+      </section>
+      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+        <h1 class="mt-20 text-6xl">Assesments</h1>
         <div class="flex flex-col mt-[8.5rem]">
           <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -93,7 +165,6 @@
                       >
                         Batch
                       </th>
-                      
                       <th
                         scope="col"
                         class="px-6 py-4 font-medium text-left text-gray-900"
@@ -113,52 +184,51 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {%for assessment in assessments%}
-
-                    {% if assessment.is_submitted%}
-                    
+                    {%for assessment in assessments %}
                     <tr class="border-b">
                       <td
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                       >
-                        {{assessment.getClass.year}}
+                        {{assessment.year}}
                       </td>
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
-                            {{assessment.getClass.part}}
+                      {{assessment.part}}
                       </td>
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
-                      {{assessment.getClass.group}}
-                      </td>
-                      
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                      {{assessment.getClass.batch}}
+                      {{assessment.group}}
                       </td>
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
-                      {{assessment.getClass.teacher.user.username}}
+                      {{assessment.batch}}
                       </td>
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
-                      {{assessment.getClass.subjectName}}
+                      {{assessment.getClass.teacher.username}}
                       </td>
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
+                      {{assessment.subjectName}}
+                      </td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      ></td>
+                      <td
+                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                      >
+                      <a href ="{% url 'admin_assessment_view' assessment.getClass_id %}">
                         <div
                           class="w-16 mt-[.05rem] text-center font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
                         >
-                         <a href="{% url 'view' assessment.getClass_id %}">
-                          VIEW
-                         </a> 
+                          View
                         </div>
+                      </a>
                       </td>
                       <td
                         class="px-6 py-4 font-light text-center text-gray-900 whitespace-nowrap"
@@ -169,6 +239,7 @@
                           Approve
                         </div>
                       </td>
+
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
@@ -179,15 +250,33 @@
                         </div>
                       </td>
                     </tr>
-                    {%endif%}
                     {%endfor%}
-
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
+        <!-- <div
+          class="fixed flex items-center justify-center bg-green-500 rounded-full right-[20rem] w-11 h-11"
+          id="button"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-8 h-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+        </div> -->
+      </section>
     </article>
   </body>
 </html>

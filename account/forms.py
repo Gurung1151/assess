@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 
-from .models import User,Teacher,Admin,ExamControlBoard
+from .models import User,Teacher,Admin,ExamControlBoard,teacherProfile
 
 class ExamControlBoardSignUpForm(UserCreationForm):
     phone = forms.CharField(max_length=20,required=False)
@@ -70,3 +70,8 @@ class LoginForm(forms.Form):
 
     class Meta : 
         model = User
+
+class teacherProfileForm(forms.ModelForm):
+    class Meta:
+        model= teacherProfile
+        fields = ['username','name','title','email','phone','address','phone','bio','portfolio_link','profile_pic']

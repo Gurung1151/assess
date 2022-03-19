@@ -33,6 +33,7 @@
    </script>
   </head>
   <body>
+   
     <article class="flex flex-row">
       <section
         class="relative flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
@@ -93,7 +94,7 @@
                 Classes
                 </a>
               
-          <a href="#">
+          <a href="{% url 'teacher_profile' %}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="inline-block w-6 h-6 mb-1"
@@ -205,8 +206,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% if submitted.getClass.teacher.user_id == request.user.id%}
+                        
                         {% for class in submitted%}
+                        
+                        {% if class.getClass.teacher.user.username == request.user.username%}
                         <tr class="border-b">
                           <td
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -234,8 +237,8 @@
                             {{class.getClass.subjectName}}
                           </td>
                         </tr>
-                        {% endfor %}
                         {% endif %}
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>
@@ -293,8 +296,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% if not_submitted.getClass.teacher.user_id == request.user.id%}
-                        {% for class in submitted%}
+                        
+                        {% for class in not_submitted%}
+                        {% if class.getClass.teacher.user_id == request.user.id%}
                         <tr class="border-b">
                           <td
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -322,8 +326,8 @@
                             {{class.getClass.subjectName}}
                           </td>
                         </tr>
-                        {% endfor %}
                         {% endif %}
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>

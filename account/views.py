@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate,logout
 from django.views.generic import CreateView
 
-from .forms import ExamControlBoardSignUpForm, AdminSignUpForm, TeacherSignUpForm,LoginForm
+from .forms import ExamControlBoardSignUpForm, AdminSignUpForm, TeacherSignUpForm,LoginForm,teacherProfileForm
 from .models import Teacher, User,ExamControlBoard,Admin, UserOTP, teacherProfile
 from classes.models import StudentData,AssessmentMarks,classData
 
@@ -12,7 +12,16 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
 
+from django.contrib.auth.decorators import login_required
+
 import classes
+
+from django.template.loader import render_to_string
+from django.views.generic import View
+
+from .export2pdf import html_to_pdf 
+from django.http import HttpResponse
+
 # Create your views here.
 
 # function views
@@ -25,12 +34,13 @@ def mainpage(request):
 # admin's portion
 
 def admin_homepage(request):
-    approvals = AssessmentMarks.objects.all().filter(is_approved=False)
-    context = {'approvals':approvals}
+    approvals = AssessmentMarks.objects.all().filter(is_approved=False,is_submitted=True)
+    approvalsCount = AssessmentMarks.objects.all().filter(is_approved=False,is_submitted=True).count()
+    context = {'approvals':approvals,'approvalsCount':approvalsCount}
     return render(request,'account/admin/admin_homepage.html',context)
 
 def admin_assessments(request):
-    assessments = AssessmentMarks.objects.all()
+    assessments = AssessmentMarks.objects.all().filter(is_submitted=True)
     context={'assessments':assessments}
     return render(request,'account/admin/admin_assessments.html',context)
 
@@ -44,7 +54,7 @@ def admin_showTeachers(request):
 
 def admin_teacher_profile(request,pk):
     teacher = teacherProfile.objects.get(id=pk)
-    classes = classData.objects.all().filter(teacher_id=teacher.id)
+    classes = classData.objects.all().filter(teacher_id=teacher.user_id)
     context = {'teacher':teacher,'classes':classes}
     return render(request,'account/admin/admin_teacher_profile.html',context)
 
@@ -54,10 +64,24 @@ def teacher_homepage(request):
     context = {'submitted': submitted, 'not_submitted':not_submitted}
     return render(request,'account/teacher/teacher_homepage.html',context)
 
-def teacher_profile(request,pk):
-    teacher = Teacher.objects.get(user_id=pk)
+@login_required(login_url="loginPage") 
+def teacher_profile(request):
+    teacher = teacherProfile.objects.get(user_id=request.user.id)
     context = {'teacher':teacher}
     return render(request,'account/teacher/teacher_profile.html',context)
+
+@login_required(login_url='loginPage')
+def editProfile(request):
+    
+    teacher = teacherProfile.objects.get(user_id=request.user.id)
+    form = teacherProfileForm(instance=teacher)
+    if request.method == 'POST':
+        form = teacherProfileForm(request.POST,request.FILES,instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect('teacher_profile')
+    context = {'form':form}
+    return render(request,'account/teacher/teacher_profile_form.html',context)
 
 # ECB's portion
 def ECB_homepage(request):
@@ -208,3 +232,46 @@ def TeacherSignUpView(request):
     
     context = {'form':form}
     return render(request,'account/TeacherSignUp.html',context)
+
+def admin_assessment_view(request,pk):
+    assessment = AssessmentMarks.objects.get(getClass_id=pk)
+    
+    students = StudentData.objects.all().filter(Dept=assessment.dept,Batch=assessment.batch,Section=assessment.group)
+    context = {'assessment':assessment,'students':students}
+    return render(request,'account/admin/admin_assessment_view.html',context)   
+
+class GeneratePdf(View):
+     def get(self, request,pk, *args, **kwargs):
+         
+        # getting the template
+        asmtStats = AssessmentMarks.objects.get(getClass_id = pk)
+        studentList = StudentData.objects.filter(Batch = asmtStats.getClass.batch,Dept=asmtStats.getClass.dept,Section=asmtStats.getClass.group)
+        MarkList = [getattr(asmtStats,'SubmittedMarks'+str(i+1)) for i in range(24)]
+        RemarkList = []
+        for i in MarkList:
+        #    if(i<asmtStats.PassMarks):
+        #        RemarkList.append('Fail')
+        #    elif(i>asmtStats.fullMarks):
+        #        RemarkList.append('More than FM')
+        #    elif(i=0):
+        #        RemarkList.append('Absent')
+        #    else:
+                RemarkList.append(' ')
+        CompleteData =[]
+        flag=0
+        for i in (studentList):
+            temp = {'Name': i.Name,
+                    'CRN':i.Batch+i.Dept+i.Roll,
+                    'Marks': MarkList[flag],
+                    'Remarks':RemarkList[flag]
+                    }
+            flag+=1
+            CompleteData.append(temp);
+          
+
+        print(CompleteData)
+        context ={'asmtStats' : asmtStats , 'CompleteData' : CompleteData}
+        open('account/templates/account/temp.html', "w").write(render_to_string('account/final_export.html',context ))
+        pdf = html_to_pdf('account/temp.html')
+         # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')

@@ -40,8 +40,8 @@ INSTALLED_APPS = [
 
     'crispy_forms',
 
-    'account',
-    'classes',
+    'account.apps.AccountConfig',
+    'classes.apps.ClassesConfig',
 ]
 
 #crispy forms

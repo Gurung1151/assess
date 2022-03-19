@@ -3,9 +3,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
 
-from django.db.models.signals import post_save
-# Create your models here.
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
+# Create your models here.
 
 class User(AbstractUser):
     is_teacher = models.BooleanField(default=False)
@@ -59,8 +60,3 @@ class UserOTP(models.Model):
     created = models.DateTimeField(auto_now=True)
     otp = models.IntegerField(null =True, blank=True)
 
-def profileUpdated(sender,instance,created,**kwargs):
-    print('Profile Saved!')
-    print('Instance:',instance)
-
-post_save.connect(profileUpdated,sender=teacherProfile)

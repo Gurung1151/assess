@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        font-family: Times-Roman;
+      }
+      .Header-Part{
+        font-size: 18px;
+        align-self: center;
+        text-align: center;
+        
+      }
+      h2,h3,h4,p{
+        margin: none;
+        padding: none;
+      }
+      .Header-Part p{
+        font-size: 12px;
+      }
+      .bold{
+        font-weight: bold;
+      }
+      .italic{
+        font-style: italic;
+      }
+      .underline{
+        text-decoration: underline;
+      }
+      .horzgap{
+        width: 100%;
+        width: 35px;
+        
+      }
+      .Midsection{
+        
+      }
+      .alignLeft{
+        text-align: left;
+      }
+      .alignright{
+        text-align: right;
+      }
+      .aligncentre{
+        text-align: center;
+      }
+      .table{
+        margin-top: 25px;
+        border: 1px solid black;
+        font-size: 15px;
+        
+      }
+      .table th{
+        padding: 10%;
+      }
+      .table td{
+        padding: 10%;
+      }
+      .Toptable{
+        font-size: 15px;
+      }
+    </style>
+    <script type="text/javascript">
+      alert('Hello')
+    </script>
+  </head>
+  <body>
+      <div class="Header-Part">
+        <h2>Tribhuvan University</h2>
+        <h4>Institute of Engineering</h4>
+        <h3>Pulchowk Campus</h3>
+        <p class="bold">Bachelor's Degree in : <span class="italic underline">{{ asmtStats.getClass.dept}}</span></p>
+      </div>
+      <table class="Toptable">
+        <td style="text-align:left;">
+          <p>Full Marks:<span class="bold italic underline">{{ asmtStats.fullMarks }}</span></p>
+          <p> Pass Marks:<span class="bold italic underline">{{ asmtStats.fullMarks }}</span></p>
+        </td>
+        <td style="text-align:center;">
+          <p class="bold">Group : <span class="italic underline">{{ asmtStats.getClass.group}}</span></p>
+          <p class="bold">
+            Year : <span class="italic underline">{{ asmtStats.getClass.year}}</span> &nbsp;
+            Part : <span class="italic underline">{{ asmtStats.getClass.part}}</span> &nbsp;
+            Batch : <span class="italic underline">{{ asmtStats.getClass.batch}}</span>
+          </p>
+          <p class="bold">Subject : <span class="italic underline">{{ asmtStats.getClass.subjectName}}</span></p>
+        </td>
+        <td style="text-align:right;">
+            <p> Th/Pr : <span class="italic underline">{{ asmtStats.type}}</span></p>
+        </td>
+      </table>
+
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 5%;">S.No</th>
+            <th style="width: 15%;">CRN</th>
+            <th style="width: 45%;">Name</th>
+            <th style="width: 15%;">Marks</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in CompleteData %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{i.CRN}}</td>
+              <td>{{i.Name}}</td>
+              <td>{{i.Marks}}</td>
+              <td>{{i.Remarks}}</td>
+             
+            </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+      <h1>Submitted by : <span class="underline">{{asmtStats.getClass.teacher}}</span></h1>
+      <h1>Signature:</h1>
+  </body>
+</html>

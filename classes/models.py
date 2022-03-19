@@ -7,19 +7,23 @@ import uuid
 from django.forms import CharField, IntegerField
 
 from account.models import Teacher
+
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+
 # Create your models here.
 
 # choices for college year
 year_choices = (
-    ('I','FIRST'),
-    ('II','SECOND'),
-    ('III','THIRD'),
-    ('IV','FOURTH'),
+    ('I','I'),
+    ('II','II'),
+    ('III','III'),
+    ('IV','IV'),
 )
 # choices for part of the year of college
 part_choices = (
-    ('I','FIRST'),
-    ('II','SECOND'),
+    ('I','I'),
+    ('II','II'),
 )
 # choices for group of the class
 group_choices = (
@@ -52,10 +56,11 @@ class classData(models.Model):
     year = models.CharField(max_length = 200, choices = year_choices, null = False, blank = True )
     part = models.CharField(max_length = 200, choices = part_choices, null = False, blank = True )
     batch = models.CharField(max_length = 200,  null = False, blank = True)
-    group = models.CharField(max_length = 200, choices = group_choices)
-    ID = models.UUIDField(default = uuid.uuid4, unique = True, editable = False, primary_key = True)
+    group = models.CharField(max_length = 200, choices = group_choices, null=True)
+    id = models.UUIDField(default = uuid.uuid4, unique = True, editable = False, primary_key = True)
     #Subject = models.ManyToManyField('subject', blank = True)
     subjectName = models.CharField(max_length=200,blank =True,null=True)
+    subjectCode = models.CharField(max_length=20,null=True,blank=True)
     #syllabus = models.TextField(blank=True,null=True)
     #subjectAlias = models.CharField(max_length=20,blank=True,null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL,null=True) 
@@ -81,6 +86,14 @@ class AssessmentMarks(models.Model):
     )
 
     getClass = models.OneToOneField(classData,on_delete=models.DO_NOTHING,primary_key=True)
+    dept = models.CharField(max_length = 200, choices = programme_choices, null = False, blank = True)
+    year = models.CharField(max_length = 200, choices = year_choices, null = False, blank = True )
+    part = models.CharField(max_length = 200, choices = part_choices, null = False, blank = True )
+    batch = models.CharField(max_length = 200,  null = False, blank = True)
+    group = models.CharField(max_length = 200, choices = group_choices,null=True)
+    #Subject = models.ManyToManyField('subject', blank = True)
+    subjectName = models.CharField(max_length=200,blank =True,null=True)
+    subjectCode = models.CharField(max_length=20,null=True,blank=True)
     #Subject = models.CharField(max_length=200,null=True,blank=True)
     #Teacher =models.ForeignKey(Teacher,on_delete=models.DO_NOTHING,null=True) 
     #Marks = ArrayField(models.IntegerField(null=True,blank=True),size=24,null=True,blank=True,default=[1,2,3])

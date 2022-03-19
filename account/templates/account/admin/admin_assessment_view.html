@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/admin_assesments_view.css'%}" rel="stylesheet" />
+    <title>Assess</title>
+  </head>
+  <body>
+    <article class="flex flex-row">
+      <section
+        class="relative flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
+      >
+        <!-- centralize profile icon -->
+        <div class="flex items-center justify-center">
+          <!-- <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-24 h-24 mt-9"
+            style="enable-background: new"
+            viewbox="0 0 45.532 45.532"
+            xml:space="preserve"
+          >
+            <path
+              d="M22.766.001C10.194.001 0 10.193 0 22.766s10.193 22.765 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 .001 15.06 7.53 7.53 0 0 1-.001-15.06zm-.005 32.771a16.708 16.708 0 0 1-10.88-4.012 3.209 3.209 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.702 16.702 0 0 1-10.881 4.013z"
+            />
+          </svg> -->
+          <div class="w-32 h-32 mt-9">
+            <img
+              class="inset-0 object-cover object-center w-full h-full rounded-full"
+              src="{{request.user.profile_pic.url}}"
+              alt=""
+            />
+          </div>
+        </div>
+        <section
+          class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
+        >
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10 6H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-5m-4 0V5a2 2 0 1 1 4 0v1m-4 0a2 2 0 1 0 4 0m-5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 0 0-2.83 2M15 11h3m-3 4h2"
+              /></svg
+            >Dashboard</a
+          >
+          <!-- dashboard: identifiation -->
+          <a href="#" class="">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mr-1 mt-[.15rem]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"
+              />
+            </svg>
+            <!-- classes:user-group -->
+            <!-- teachers:user -->
+            <!-- assignments: book-open -->
+            Classes
+          </a>
+          <a href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm-4 7a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7z"
+              /></svg
+            >Teachers</a
+          >
+          <div class="h-12 py-2 text-center bg-white w-52 rounded-xl">
+            <a href="#" class="text-2xl font-semibold tracking-wider">
+              <div class="flex flex-row lg:ml-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="inline-block w-6 h-6 mt-[.12rem] mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+                Assesments
+              </div></a
+            >
+          </div>
+        </section>
+        <section class="mx-auto mb-11">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="inline-block w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
+          </svg>
+          Logout
+        </section>
+      </section>
+      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+        <div class="mt-5 font-serif">
+          <h1 class="text-center uppercase">Tribhuvan university</h1>
+          <h1 class="text-center uppercase">Institute of Engineering</h1>
+          <h1 class="text-center">Pulchowk Campus</h1>
+          <h1 class="text-center">
+            Bachelor's Degree in
+            <span class="ml-2 italic font-semibold underline"
+              >Computer Engineering</span
+            >
+          </h1>
+          <h1 class="mt-3 text-center">
+            Group: <span class="ml-2 italic font-semibold underline">{{assessment.group}}</span>
+          </h1>
+          <div class="text-center">
+            <h1 class="inline-block mr-2 text-center">
+              Year: <span class="italic font-semibold underline ml-">{{assessment.year}}</span>
+            </h1>
+            <h1 class="inline-block mr-2 text-center">
+              Part: <span class="italic font-semibold underline ml-">{{assessment.part}}</span>
+            </h1>
+            <h1 class="inline-block text-center">
+              Batch:
+              <span class="italic font-semibold underline ml-">{{assessment.batch}}</span>
+            </h1>
+          </div>
+          <table class="mx-auto">
+            <tbody>
+              <tr>
+                <td style="height: 20pt; width: 20px">&nbsp;</td>
+                <td style="width: 680px">&nbsp;</td>
+                <td style="width: 20px">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>
+                  <table style="width: 100%">
+                    <colgroup>
+                      <col style="width: 157px" />
+                      <col style="width: 334px" />
+                      <col style="width: 187px" />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="left">
+                          Full Marks:
+                          <span class="italic font-semibold underline imp ml-"
+                            >{{assessment.fullMarks}}</span
+                          >
+                        </td>
+                        <td class="left"></td>
+                        <td class="left">
+                          Code No.:
+                          <span class="italic font-semibold underline imp ml-"
+                            >{{assessment.subjectCode}}</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="left">
+                          Pass Marks:
+                          <span class="italic font-semibold underline imp ml-"
+                            >8</span
+                          >
+                        </td>
+                        <td class="left">
+                          Subject:&nbsp;
+                          <span class="italic font-semibold underline imp ml-"
+                            >{{assessment.subjectName}}</span
+                          >
+                        </td>
+                        <td class="left">
+                          Prac./Theory:
+                          <span class="italic font-semibold underline imp ml-"
+                            >{{assessment.type}}</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="text-center">
+                          <table
+                            class="border-2 border-black wborder"
+                            style="width: 100%"
+                          >
+                            <colgroup>
+                              <col style="width: 6%" />
+                              <col style="width: 15%" />
+                              <col style="width: 42%" />
+                              <col style="width: 11%" />
+                              <col style="width: 15%" />
+                              <col style="width: 11%" />
+                            </colgroup>
+                            <tbody class="border-2 border-black">
+                              <tr class="border-2 border-black">
+                                <th class="border-2 border-black" rowspan="2">
+                                  S. No.
+                                </th>
+                                <th class="border-2 border-black" rowspan="2">
+                                  CRN
+                                </th>
+                                <th rowspan="2" class="border-2 border-black">
+                                  NAME
+                                </th>
+                                <th
+                                  colspan="2"
+                                  class="border-2 border-black center"
+                                >
+                                  Assesment
+                                </th>
+                                <th rowspan="2" class="border-2 border-black">
+                                  Remarks
+                                </th>
+                              </tr>
+                              <tr class="border-2 border-black">
+                                <th class="border-2 border-black">
+                                  In Figure&nbsp;
+                                </th>
+                                <th class="border-2 border-black">In Words</th>
+                              </tr>
+                              {% for student in students%}
+                              
+                              <tr>
+                                <td class="border-2 border-black center">1</td>
+                                <td class="border-2 border-black center">
+                                  {{student.Batch}}{{student.Dept}}{{student.Roll}}
+                                </td>
+                                <td class="border-2 border-black center">{{student.Name}}</td>
+                                <td class="border-2 border-black center">
+                                  <span>A</span>
+                                </td>
+                                <td class="border-2 border-black center">
+                                  &nbsp;
+                                </td>
+                                <td class="border-2 border-black center">
+                                  Absent
+                                </td>
+                              </tr>
+                              {%endfor%}
+                              <!-- put more tr's here  -->
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="left">
+                          Date:&nbsp;
+                          <span class="ml-1 italic font-semibold underline"
+                            >2078/12/01</span
+                          >
+                        </td>
+                        <td class="">
+                          Name of Examiner:&nbsp;
+                          <span class="ml-1 italic font-semibold underline"
+                            >dfas</span
+                          >
+                        </td>
+                        <td class="left">Signature:________________</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="left">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="left">Important:</td>
+                        <td class="left">&nbsp;</td>
+                        <td class="left">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="left">
+                          For Assesment Purpose - Following should be written in
+                          brief :
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="left">
+                          a)&nbsp;Full marks, Pass marks, Title &amp; Code No.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="left">
+                          b) Marks in Words, Date, Name &amp; Signature of the
+                          Examiner.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" class="left">
+                          c) Absentee, absentees - 'A' and Failed marks must be
+                          circled.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="3">&nbsp;</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex items-center justify-center w-full mt-6">
+            <a href="{% url 'export' assessment.getClass_id%}">
+            <button>
+              <div
+                class="flex items-center justify-center h-12 text-3xl text-white rounded-lg w-28 bg-gradient-to-r from-green-300 to-green-600"
+              >
+                Export
+              </div>
+            </button>
+          </a>
+          </div>
+        </div>
+      </section>
+    </article>
+  </body>
+</html>

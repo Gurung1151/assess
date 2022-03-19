@@ -21,11 +21,18 @@ from account.models import Admin
 
 
 # function to render the given html page
-def classes(request,pk):
-    user = Admin.objects.get(user_id=pk)
+def classes(request):
+    
+    form = classForm()
+
+    if request.method == 'POST':   
+     form = classForm(request.POST)
+     if form.is_valid():
+            form.save()
+
     classes = classData.objects.all()
-    context = {'classes':classes,'user':user}
-    return render(request, 'classes/classes.html',context) 
+    context = {'classes':classes,'form':form}
+    return render(request, 'classes/admin_classes.html',context) 
 
 def getClass(request,pk):
      classObj = classData.objects.get(ID=pk)
@@ -82,15 +89,18 @@ def teacherAssesments(request):
 
 # these are not sure
 def view_assessment(request,pk):
-    marksheet = AssessmentMarks.objects.get(getClass_id = pk)
-    students = StudentData.objects.all()
-    form = AssessmentForm()
-    if request.method=='POST':
-        form = AssessmentForm(request.POST)
+    assessment = AssessmentMarks.objects.get(getClass_id=pk)
+    form = AssessmentForm(instance=assessment)
+    if request.method == "POST":
+        form = AssessmentForm(request.POST,instance=assessment)
         if form.is_valid():
+            assessment.is_submitted=True
             form.save()
-            marksheet.is_submitted = True
-    context = {'marksheet':marksheet,'students':students,'form':form}
+            return redirect('teacherAssessments')
+
+    students = StudentData.objects.all().filter(Dept=assessment.dept,Batch=assessment.batch,Section=assessment.group)
+
+    context ={'form':form,'students':students }
     return render(request,'classes/view_assessment.html',context)
 
 def assessment(request):
