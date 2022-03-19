@@ -29,7 +29,7 @@ class classForm(forms.ModelForm):
 class AssessmentForm(forms.ModelForm):
     class Meta:
         model = AssessmentMarks
-        fields = ['fullMarks','type','SubmittedMarks1','SubmittedMarks1','SubmittedMarks2','SubmittedMarks3','SubmittedMarks4','SubmittedMarks5','SubmittedMarks6','SubmittedMarks7','SubmittedMarks8','SubmittedMarks9',
+        fields = ['SubmittedMarks1','SubmittedMarks1','SubmittedMarks2','SubmittedMarks3','SubmittedMarks4','SubmittedMarks5','SubmittedMarks6','SubmittedMarks7','SubmittedMarks8','SubmittedMarks9',
         'SubmittedMarks10','SubmittedMarks11','SubmittedMarks12','SubmittedMarks13','SubmittedMarks14','SubmittedMarks15','SubmittedMarks16','SubmittedMarks17','SubmittedMarks18',
         'SubmittedMarks19','SubmittedMarks20','SubmittedMarks21','SubmittedMarks22','SubmittedMarks23','SubmittedMarks24']
 

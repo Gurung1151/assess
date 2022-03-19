@@ -54,7 +54,7 @@
               Dashboard
           </a>
           <!-- dashboard: identifiation -->
-          <a href="#" class="">
+          <a href="{% url 'classes'%}" class="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="inline-block w-6 h-6 mr-1 mt-[.15rem]"
@@ -74,7 +74,7 @@
             <!-- assignments: book-open -->
             Classes
           </a>
-          <a href="#">
+          <a href="{% url 'admin_showTeachers'%}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="inline-block w-6 h-6 mb-1 mr-1"
@@ -91,7 +91,7 @@
             >Teachers</a
           >
           <div class="h-12 py-2 text-center bg-white w-52 rounded-xl">
-            <a href="#" class="text-2xl font-semibold tracking-wider">
+            <a href="{% url 'admin_assessments'%}" class="text-2xl font-semibold tracking-wider">
               <div class="flex flex-row lg:ml-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,21 +233,38 @@
                       <td
                         class="px-6 py-4 font-light text-center text-gray-900 whitespace-nowrap"
                       >
+                      {% if assessment.is_approved%}
+                      
+                        <div
+                          class="w-24 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
+                        >
+                          Approved
+                        </div>
+                      {% else %}
+                      <a href="{% url 'approved' assessment.getClass_id %}"
                         <div
                           class="w-24 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
                         >
                           Approve
                         </div>
+                        
+                      {% endif %}
+                      
                       </td>
 
                       <td
                         class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                       >
-                        <div
-                          class="w-32 text-center mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
-                        >
-                          Disapprove
-                        </div>
+                     
+                    
+                    <a href="{% url 'disapproved' assessment.getClass_id %}"
+                      <div
+                        class="w-24 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
+                      >
+                        Approve
+                      </div>
+                      
+                   
                       </td>
                     </tr>
                     {%endfor%}

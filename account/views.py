@@ -16,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 
 import classes
 
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+
 from django.template.loader import render_to_string
 from django.views.generic import View
 
@@ -46,6 +49,20 @@ def admin_assessments(request):
 
 def admin_showTeachers(request):
 
+    to = request.POST.get('email')
+    
+    html_content = render_to_string("email_template.html")
+    text_content = strip_tags(html_content)
+
+    email = EmailMultiAlternatives(
+
+        "Invitaion",
+        text_content,
+        settings.EMAIL_HOST_USER,
+        [to]
+    )
+    email.attach_alternative(html_content,"text/html")
+    email.send()
     teachers = teacherProfile.objects.all()
     context = {'teachers':teachers}
     return render(request, 'account/admin/admin_showTeachers.html',context)
@@ -59,15 +76,26 @@ def admin_teacher_profile(request,pk):
     return render(request,'account/admin/admin_teacher_profile.html',context)
 
 def teacher_homepage(request):
+    countSubmitted=0
+    countNotSubmitted=0
     submitted = AssessmentMarks.objects.all().filter(is_submitted = True)
+    for assessment in submitted:
+        if assessment.getClass.teacher.user_id == request.user.id:
+            countSubmitted=countSubmitted+1
+            
     not_submitted = AssessmentMarks.objects.all().filter(is_submitted = False)
-    context = {'submitted': submitted, 'not_submitted':not_submitted}
+    for assessment in not_submitted:
+        if assessment.getClass.teacher.user_id == request.user.id:
+            countNotSubmitted=countNotSubmitted+1
+            
+    context = {'submitted': submitted, 'not_submitted':not_submitted,'countSubmitted':countSubmitted,'countNotsubmitted':countNotSubmitted}
     return render(request,'account/teacher/teacher_homepage.html',context)
 
 @login_required(login_url="loginPage") 
 def teacher_profile(request):
     teacher = teacherProfile.objects.get(user_id=request.user.id)
-    context = {'teacher':teacher}
+    classes = classData.objects.all().filter(teacher_id=request.user.id)
+    context = {'teacher':teacher,'classes':classes}
     return render(request,'account/teacher/teacher_profile.html',context)
 
 @login_required(login_url='loginPage')
@@ -234,10 +262,35 @@ def TeacherSignUpView(request):
     return render(request,'account/TeacherSignUp.html',context)
 
 def admin_assessment_view(request,pk):
-    assessment = AssessmentMarks.objects.get(getClass_id=pk)
+    asmtStats = AssessmentMarks.objects.get(getClass_id=pk)
     
-    students = StudentData.objects.all().filter(Dept=assessment.dept,Batch=assessment.batch,Section=assessment.group)
-    context = {'assessment':assessment,'students':students}
+    students = StudentData.objects.all().filter(Dept=asmtStats.dept,Batch=asmtStats.batch,Section=asmtStats.group)
+    # context = {'assessment':assessment,'students':students}
+    MarkList = [getattr(asmtStats,'SubmittedMarks'+str(i+1)) for i in range(24)]
+    RemarkList = []
+    for i in MarkList:
+           if(int(i)<int(asmtStats.passMarks)):
+               RemarkList.append('Not Qualified')
+           elif(int(i)>int(asmtStats.fullMarks)):
+               RemarkList.append('More than FM')
+           elif(int(i)==0):
+               RemarkList.append('Absent')
+           else:
+                RemarkList.append(' ')
+    CompleteData =[]
+    flag=0
+    for i in (students):
+            temp = {'Name': i.Name,
+                    'CRN':i.Batch+i.Dept+i.Roll,
+                    'Marks': MarkList[flag],
+                    'Remarks':RemarkList[flag]
+                    }
+            flag+=1
+            CompleteData.append(temp);
+          
+
+    print(CompleteData)
+    context ={'asmtStats' : asmtStats , 'CompleteData' : CompleteData}
     return render(request,'account/admin/admin_assessment_view.html',context)   
 
 class GeneratePdf(View):
@@ -249,13 +302,13 @@ class GeneratePdf(View):
         MarkList = [getattr(asmtStats,'SubmittedMarks'+str(i+1)) for i in range(24)]
         RemarkList = []
         for i in MarkList:
-        #    if(i<asmtStats.PassMarks):
-        #        RemarkList.append('Fail')
-        #    elif(i>asmtStats.fullMarks):
-        #        RemarkList.append('More than FM')
-        #    elif(i=0):
-        #        RemarkList.append('Absent')
-        #    else:
+           if(int(i)<int(asmtStats.passMarks)):
+               RemarkList.append('Not Qualified')
+           elif(int(i)>int(asmtStats.fullMarks)):
+               RemarkList.append('More than FM')
+           elif(int(i)==0):
+               RemarkList.append('Absent')
+           else:
                 RemarkList.append(' ')
         CompleteData =[]
         flag=0
@@ -275,3 +328,34 @@ class GeneratePdf(View):
         pdf = html_to_pdf('account/temp.html')
          # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
+def approved(request,pk):
+    assessment = AssessmentMarks.objects.get(getClass_id=pk)
+    context ={'assessment':assessment}
+    assessment.is_approved=True
+    assessment.save()
+    msg = f'Your' + assessment.__str__() + 'has been approved'
+    send_mail(
+                'Approved',
+                msg,
+                settings.EMAIL_HOST_USER,
+                [assessment.getClass.teacher.user.email],
+                fail_silently = False
+            )
+    return redirect('admin_assessments')
+
+def disapproved(request,pk):
+    assessment = AssessmentMarks.objects.get(getClass_id=pk)
+    context ={'assessment':assessment}
+    assessment.is_approved=False
+    assessment.is_submitted = False
+    assessment.save()
+    msg = f'Your' + assessment.__str__() + 'has been rejected'
+    send_mail(
+                'Rejected',
+                msg,
+                settings.EMAIL_HOST_USER,
+                [assessment.getClass.teacher.user.email],
+                fail_silently = False
+            )
+    return redirect('admin_assessments')
+

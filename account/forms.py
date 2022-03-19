@@ -75,3 +75,7 @@ class teacherProfileForm(forms.ModelForm):
     class Meta:
         model= teacherProfile
         fields = ['username','name','title','email','phone','address','phone','bio','portfolio_link','profile_pic']
+
+
+class inviteForm(forms.Form):
+    email = forms.EmailField(max_length=200)

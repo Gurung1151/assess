@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'account.apps.AccountConfig',
     'classes.apps.ClassesConfig',
+
+    'django_filters',
 ]
 
 #crispy forms

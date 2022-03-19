@@ -99,6 +99,7 @@ class AssessmentMarks(models.Model):
     #Marks = ArrayField(models.IntegerField(null=True,blank=True),size=24,null=True,blank=True,default=[1,2,3])
     #Marks = models.CharField(max_length=48,default='000000000000000000000000000000000000000000000000')
     fullMarks = models.IntegerField(null=True)
+    passMarks = models.IntegerField(null=True)
     type = models.CharField(max_length = 200 ,choices=type_choices)
     is_approved =models.BooleanField(default=False)
     is_submitted = models.BooleanField(default=False)
@@ -140,3 +141,5 @@ class StudentData(models.Model):
     def __str__ (self):
         return self.Name
 
+class emailModel(models.Model):
+    email = models.EmailField(max_length=200,null=True,blank=True)

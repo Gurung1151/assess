@@ -33,5 +33,7 @@ urlpatterns = [
    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='account/reset-password-confirm.html'),name="password_reset_confirm"),
    path('reset_password_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='account/reset-password-complete.html'),name="password_reset_complete"),
 
-   path('Admin/teacher/assessment/export/<str:pk>/',views.GeneratePdf.as_view(),name='export') 
+   path('Admin/teacher/assessment/export/<str:pk>/',views.GeneratePdf.as_view(),name='export'),
+   path('approved/<str:pk>',views.approved,name='approved'),
+   path('rejected/<str:pk>',views.disapproved,name='disapproved') 
 ]

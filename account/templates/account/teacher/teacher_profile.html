@@ -234,33 +234,37 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                {% for class in classes %}
+                                {% if class.teacher.user_id == request.user.id %}
                                 <tr class="border-b">
                                   <td
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                                   >
-                                    {{teacher.year}}
+                                    {{class.year}}
                                   </td>
                                   <td
                                     class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                                   >
-                                  {{teacher.part}}
+                                  {{class.part}}
                                   </td>
                                   <td
                                     class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                                   >
-                                  {{teacher.group}}
+                                  {{class.group}}
                                   </td>
                                   <td
                                     class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                                   >
-                                  {{teacher.batch}}
+                                  {{class.batch}}
                                   </td>
                                   <td
                                     class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
                                   >
-                                  {{teacher.subjectName}}
+                                  {{class.subjectName}}
                                   </td>
                                 </tr>
+                                {%endif%}
+                                {%endfor%}
                               </tbody>
                             </table>
                           </div>

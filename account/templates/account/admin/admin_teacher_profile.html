@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Mumble UI -->
+    <link rel="stylesheet" href="{% static 'uikit/styles/uikit.css'%}" />
     <link href="{%static 'css/admin_teacher_profile.css'%}" rel="stylesheet" />
     <title>Assess</title>
   </head>
@@ -180,53 +182,91 @@
                           <p class="mb-4 text-lg leading-relaxed text-gray-800">
                             {{teacher.bio}}
                           </p>
-                          <h1 class="text-4xl font-semibold tracking-wider mt-3">Classes</h1>
-                          
-                            <table class = "mx-auto">
-                              <tr>
-                                <th>
-                                  Year
-                                </th>
-                                <th>
-                                  Part
-                                </th>
-                                <th>
-                                  Group
-                                </th>
-                                <th>
-                                  Batch
-                                </th>
-                                <th>
-                                  Subject
-                                </th>
-                              </tr>
+                          <div
+                      class="pt-10 mx-auto text-4xl font-semibold text-center border-t border-gray-300"
+                    >
+                      Classes
+                    </div>
+
+                    <div class="flex flex-col mt-7 mb-7">
+                      <div class="mx-auto overflow-x-auto">
+                        <div
+                          class="inline-block min-w-full py-2 sm:px-6 lg:px-8"
+                        >
+                          <div class="overflow-hidden">
+                            <table class="min-w-full">
+                              <thead class="border-b">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    class="px-6 py-4 font-medium text-left text-gray-900"
+                                  >
+                                    Year
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="px-6 py-4 font-medium text-left text-gray-900"
+                                  >
+                                    Part
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="px-6 py-4 font-medium text-left text-gray-900"
+                                  >
+                                    Group
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="px-6 py-4 font-medium text-left text-gray-900"
+                                  >
+                                    Batch
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    class="px-6 py-4 font-medium text-left text-gray-900"
+                                  >
+                                    Subject
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
                                 {% for class in classes %}
-                              <tr>
-                                <td>
-                                  {{class.year}}
-                                </td>
-                                <td>
+                                {% if class.teacher.user_id == teacher.user.user.id %}
+                                <tr class="border-b">
+                                  <td
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                  >
+                                    {{class.year}}
+                                  </td>
+                                  <td
+                                    class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                                  >
                                   {{class.part}}
-                                </td>
-                                <td>
+                                  </td>
+                                  <td
+                                    class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                                  >
                                   {{class.group}}
-                                </td>
-                                <td>
+                                  </td>
+                                  <td
+                                    class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                                  >
                                   {{class.batch}}
-                                </td>
-                                <td>
+                                  </td>
+                                  <td
+                                    class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                                  >
                                   {{class.subjectName}}
-                                </td>
-                                {% endfor %}
-                              </tr>
+                                  </td>
+                                {%endif%}
+                                {%endfor%}
+                                </tr>
+                              </tbody>
                             </table>
-                          
-                            <h1 class="text-4xl font-semibold tracking-wider mt-3"> link </h1>
-                          <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                              <a href="{{teacher.portfolio_link}}">
-                                  {{teacher.portfolio_link}}
-                              </a>
-                          </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                         </div>
                       </div>
 

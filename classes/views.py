@@ -9,6 +9,8 @@ from django.http import HttpResponse
 from .models import StudentData, classData,AssessmentMarks
 from .forms import classForm, AssessmentForm
 from account.models import Admin
+
+from .filters import ClassFilter
 # Create your views here.
 
 
@@ -123,5 +125,8 @@ def view(request,pk):
 
 def teacherClasses(request):
     classes = classData.objects.all().filter(teacher_id=request.user.id)
-    context = {'classes':classes}
+
+    myfilter= ClassFilter(request.GET,queryset=classes)
+    classes =myfilter.qs
+    context = {'classes':classes,'myfilter':myfilter}
     return render(request,'classes/teacher_classes.html',context)

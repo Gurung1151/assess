@@ -37,7 +37,7 @@
         <section
           class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
         >
-          <a href="#"
+          <a href="{% url 'admin_homepage'%}"
             ><svg
               xmlns="http://www.w3.org/2000/svg"
               class="inline-block w-6 h-6 mb-1 mr-1"
@@ -54,7 +54,7 @@
             >Dashboard</a
           >
           <!-- dashboard: identifiation -->
-          <a href="#" class="">
+          <a href="{% url 'classes'%}" class="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="inline-block w-6 h-6 mr-1 mt-[.15rem]"
@@ -74,7 +74,7 @@
             <!-- assignments: book-open -->
             Classes
           </a>
-          <a href="#">
+          <a href="{% url 'admin_showTeachers'%}">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="inline-block w-6 h-6 mb-1 mr-1"
@@ -91,7 +91,7 @@
             >Teachers</a
           >
           <div class="h-12 py-2 text-center bg-white w-52 rounded-xl">
-            <a href="#" class="text-2xl font-semibold tracking-wider">
+            <a href="{% url 'admin_assessments'%}" class="text-2xl font-semibold tracking-wider">
               <div class="flex flex-row lg:ml-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -113,6 +113,7 @@
           </div>
         </section>
         <section class="mx-auto mb-11">
+          <a href="{% url 'logoutPage'%}"
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="inline-block w-6 h-6"
@@ -128,6 +129,7 @@
             />
           </svg>
           Logout
+        </a>
         </section>
       </section>
       <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
@@ -142,18 +144,18 @@
             >
           </h1>
           <h1 class="mt-3 text-center">
-            Group: <span class="ml-2 italic font-semibold underline">{{assessment.group}}</span>
+            Group: <span class="ml-2 italic font-semibold underline">{{asmtStats.group}}</span>
           </h1>
           <div class="text-center">
             <h1 class="inline-block mr-2 text-center">
-              Year: <span class="italic font-semibold underline ml-">{{assessment.year}}</span>
+              Year: <span class="italic font-semibold underline ml-">{{asmtStats.year}}</span>
             </h1>
             <h1 class="inline-block mr-2 text-center">
-              Part: <span class="italic font-semibold underline ml-">{{assessment.part}}</span>
+              Part: <span class="italic font-semibold underline ml-">{{asmtStats.part}}</span>
             </h1>
             <h1 class="inline-block text-center">
               Batch:
-              <span class="italic font-semibold underline ml-">{{assessment.batch}}</span>
+              <span class="italic font-semibold underline ml-">{{asmtStats.batch}}</span>
             </h1>
           </div>
           <table class="mx-auto">
@@ -183,14 +185,14 @@
                         <td class="left">
                           Full Marks:
                           <span class="italic font-semibold underline imp ml-"
-                            >{{assessment.fullMarks}}</span
+                            >{{asmtStats.fullMarks}}</span
                           >
                         </td>
                         <td class="left"></td>
                         <td class="left">
                           Code No.:
                           <span class="italic font-semibold underline imp ml-"
-                            >{{assessment.subjectCode}}</span
+                            >{{asmtStats.subjectCode}}</span
                           >
                         </td>
                       </tr>
@@ -207,13 +209,13 @@
                         <td class="left">
                           Subject:&nbsp;
                           <span class="italic font-semibold underline imp ml-"
-                            >{{assessment.subjectName}}</span
+                            >{{asmtStats.subjectName}}</span
                           >
                         </td>
                         <td class="left">
                           Prac./Theory:
                           <span class="italic font-semibold underline imp ml-"
-                            >{{assessment.type}}</span
+                            >{{asmtStats.type}}</span
                           >
                         </td>
                       </tr>
@@ -261,22 +263,22 @@
                                 </th>
                                 <th class="border-2 border-black">In Words</th>
                               </tr>
-                              {% for student in students%}
+                              {% for student in CompleteData%}
                               
                               <tr>
-                                <td class="border-2 border-black center">1</td>
+                                <td class="border-2 border-black center">{{forloop.counter}}</td>
                                 <td class="border-2 border-black center">
-                                  {{student.Batch}}{{student.Dept}}{{student.Roll}}
+                                  {{student.CRN}}
                                 </td>
                                 <td class="border-2 border-black center">{{student.Name}}</td>
                                 <td class="border-2 border-black center">
-                                  <span>A</span>
+                                  {{student.Marks}}
                                 </td>
                                 <td class="border-2 border-black center">
                                   &nbsp;
                                 </td>
                                 <td class="border-2 border-black center">
-                                  Absent
+                                 {{student.Remarks}}
                                 </td>
                               </tr>
                               {%endfor%}
@@ -296,9 +298,9 @@
                           >
                         </td>
                         <td class="">
-                          Name of Examiner:&nbsp;
+                          Name of Examiner:;
                           <span class="ml-1 italic font-semibold underline"
-                            >dfas</span
+                            >{{asmtStats.getClass.teacher.user.username}}</span
                           >
                         </td>
                         <td class="left">Signature:________________</td>
@@ -345,7 +347,7 @@
             </tbody>
           </table>
           <div class="flex items-center justify-center w-full mt-6">
-            <a href="{% url 'export' assessment.getClass_id%}">
+            <a href="{% url 'export' asmtStats.getClass_id%}">
             <button>
               <div
                 class="flex items-center justify-center h-12 text-3xl text-white rounded-lg w-28 bg-gradient-to-r from-green-300 to-green-600"
