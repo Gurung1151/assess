@@ -141,11 +141,13 @@
            <a href="{% url 'admin_homepage' %}" class="text-2xl font-semibold tracking-wider">Dashboard</a>
           </div>
           <a href="{% url 'classes' user.id %}" class="">Classes</a>
-          <a href="{% url 'admin_showTeachers' user.id%}">Teachers</a>
+          <a href="{% url 'admin_showTeachers'%}">Teachers</a>
           <a href="{% url 'admin_assessments'%}">Assessments</a>
         </section>
-        <section class="mx-auto mb-11">
-          <svg
+             
+          <section class="mx-auto mb-11">
+            <a href="{% url 'logoutPage' %}">  
+            <svg
             xmlns="http://www.w3.org/2000/svg"
             class="inline-block w-6 h-6"
             fill="none"
@@ -160,9 +162,117 @@
             />
           </svg>
           Logout
+          </a>
         </section>
+      
+ 
       </section>
-      <section class="flex-grow h-screen overflow-auto px-[3.5rem]"></section>
+      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+        <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
+          <div class="flex flex-col mt-[8.5rem]">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <h1>Waiting for Approval</h1>
+                <div class="overflow-hidden">
+                  <table class="min-w-full">
+                    <thead class="border-b">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        >
+                          Year
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        >
+                          Part
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        >
+                          Group
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        >
+                          Batch
+                        </th>
+                       
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        >
+                          Teacher
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        >
+                          Subject
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-4 font-medium text-left text-gray-900"
+                        ></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for approval in approvals%}
+                      <tr class="border-b">
+                        <td
+                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          {{approval.getClass.year}}
+                        </td>
+                        <td
+                          class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                        >
+                        {{approval.getClass.part}}
+                        </td>
+                        <td
+                          class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                        >
+                        {{approval.getClass.group}}
+                        </td>
+                        <td
+                          class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                        >
+                        {{approval.getClass.batch}}
+                        </td>
+                        
+                        <td
+                          class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                        >
+                        {{approval.getClass.teacher}}
+                        </td>
+                        <td
+                          class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                        >
+                        {{approval.getClass.subjectName}}
+                        </td>
+                        <td
+                          class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                        >
+                          <div
+                            class="w-16 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
+                          >
+                            VIEW
+                          </div>
+                        </td>
+                      </tr>
+                     {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
     </article>
   </body>
 </html>

@@ -70,16 +70,17 @@
           class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
         >
           <a href="{%url 'admin_homepage' %}">Dashboard</a>
-          <a href="{% url 'classes' user.user.id %}" class="">Classes</a>
+          <a href="#" class="">Classes</a>
           <div class="w-32 py-2 text-center bg-white rounded-xl">
-            <a href="#" class="text-2xl font-semibold tracking-wider"
+            <a href="{% url 'admin_showTeachers' %}" class="text-2xl font-semibold tracking-wider"
               >Teachers</a
             >
           </div>
           <a href="#">Assessments</a>
         </section>
         <section class="mx-auto mb-11">
-          <svg
+          <a href="{% url 'logoutPage' %}">
+            <svg
             xmlns="http://www.w3.org/2000/svg"
             class="inline-block w-6 h-6"
             fill="none"
@@ -94,12 +95,14 @@
             />
           </svg>
           Logout
+        </a>
         </section>
       </section>
       <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
         <h1 class="mt-20 mb-20 text-6xl">Teachers</h1>
         {% for teacher in teachers %}
-        <div class="grid grid-cols-4 gap-6 " style="display:inline-block;float:left">
+        <div class="grid grid-cols-2 gap-3 " style="display:inline-block; float:left">
+         
           <div
             class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 h-10 w-10 inset-0 object-cover object-center"
           >
@@ -111,20 +114,20 @@
                 <h5
                   class="mb-2 text-2xl font-bold tracking-tight text-center text-gray-900 dark:text-white"
                 >
-                  {{teacher.user.username}}
+                  {{teacher.username}}
                 </h5>
               </a>
               <p class="px-3 mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
+                {{teacher.bio|slice:"150"}}
               </p>
+              <a
+                  href="{% url 'admin_teacher_profile' teacher.id %}"
+                  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black rounded-lg"
+                >
               <div
                 class="flex items-center justify-center bg-green-500 rounded-lg"
               >
-                <a
-                  href="{% url 'admin_teacher_profile' teacher.user.id %}"
-                  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black rounded-lg"
-                >
+                
                   View
                 </a>
               </div>

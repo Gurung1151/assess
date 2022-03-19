@@ -3,8 +3,14 @@ from django.contrib.auth import login,authenticate,logout
 from django.views.generic import CreateView
 
 from .forms import ExamControlBoardSignUpForm, AdminSignUpForm, TeacherSignUpForm,LoginForm
-from .models import Teacher, User,ExamControlBoard,Admin
-from classes.models import StudentData,AssessmentMarks
+from .models import Teacher, User,ExamControlBoard,Admin, UserOTP, teacherProfile
+from classes.models import StudentData,AssessmentMarks,classData
+
+import random
+
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
 
 import classes
 # Create your views here.
@@ -19,31 +25,34 @@ def mainpage(request):
 # admin's portion
 
 def admin_homepage(request):
-    # adminObj = Admin.objects.get(id=pk)
-    # context = {'adminObj':adminObj}
-    return render(request,'account/admin/admin_homepage.html')
+    approvals = AssessmentMarks.objects.all().filter(is_approved=False)
+    context = {'approvals':approvals}
+    return render(request,'account/admin/admin_homepage.html',context)
 
 def admin_assessments(request):
     assessments = AssessmentMarks.objects.all()
     context={'assessments':assessments}
     return render(request,'account/admin/admin_assessments.html',context)
 
-def admin_showTeachers(request,pk):
-    user = Admin.objects.get(user_id=pk)
-    teachers = Teacher.objects.all()
-    context = {'teachers':teachers,'user':user}
+def admin_showTeachers(request):
+
+    teachers = teacherProfile.objects.all()
+    context = {'teachers':teachers}
     return render(request, 'account/admin/admin_showTeachers.html',context)
 
 # teacher's portion
 
 def admin_teacher_profile(request,pk):
-    teacher = Teacher.objects.get(user_id=pk)
-    context = {'teacher':teacher}
+    teacher = teacherProfile.objects.get(id=pk)
+    classes = classData.objects.all().filter(teacher_id=teacher.id)
+    context = {'teacher':teacher,'classes':classes}
     return render(request,'account/admin/admin_teacher_profile.html',context)
 
 def teacher_homepage(request):
-
-    return render(request,'account/teacher/teacher_homepage.html')
+    submitted = AssessmentMarks.objects.all().filter(is_submitted = True)
+    not_submitted = AssessmentMarks.objects.all().filter(is_submitted = False)
+    context = {'submitted': submitted, 'not_submitted':not_submitted}
+    return render(request,'account/teacher/teacher_homepage.html',context)
 
 def teacher_profile(request,pk):
     teacher = Teacher.objects.get(user_id=pk)
@@ -131,17 +140,71 @@ class AdminSignUpView(CreateView):
 #             return redirect('loginPage')
 #     return render(request,'account/register.html',{'form':form,'msg':msg})
 
-class TeacherSignUpView(CreateView):
-    model = User
-    form_class = TeacherSignUpForm
-    template_name = 'account/TeacherSignUp.html'
+# class TeacherSignUpView(CreateView):
+#     model = User
+#     form_class = TeacherSignUpForm
+#     template_name = 'account/TeacherSignUp.html'
 
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'teacher'
-        return super().get_context_data(**kwargs)
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'teacher'
+#         return super().get_context_data(**kwargs)
     
-    def form_valid(self, form):
-        user = form.save()
-        #login(self.request,user)
-        return redirect('main')
+#     def form_valid(self, form):
+#         user = form.save()
+#         #login(self.request,user)
+#         return redirect('main')
     
+def TeacherSignUpView(request):
+    if request.method == 'POST':
+        get_otp = request.POST.get('otp')
+
+        if get_otp:
+            get_user = request.POST.get('user')
+            user = User.objects.get(username=get_user)
+            
+            if int(get_otp)==UserOTP.objects.filter(user=user).last().otp:
+                user.is_active = True
+                user.save()
+                messages.success(request,f'Account is created for {user.username}')
+                return redirect('loginPage')
+            else:
+                messages.error(request,f'Sorry!!! You Have Entered Wrong OTP')
+                return render(request, 'account/TeacherSignUp.html',{'otp':True,'user':user})
+        
+        
+        form = TeacherSignUpForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            user = User.objects.get(username=username)
+            user.is_teacher = True
+            user.is_active = False
+            user.email = email
+            user.save()
+            teacher_obj = Teacher.objects.create(user=user)
+            teacher_obj.save()
+
+            #otp part
+            user_otp = random.randint(100000,999999)
+            UserOTP.objects.create(user=user,otp=user_otp)
+            msg = f'Hello {user.username},\n Your OTP is {user_otp}\n Thank You For Signing Up'
+
+            send_mail(
+                'Verify Your Email',
+                msg,
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                fail_silently = False
+            )
+
+            return render(request, 'account/TeacherSignUp.html',{'otp':True,'user':user})
+
+            #return redirect('loginPage')
+    
+    else:
+        form = TeacherSignUpForm()
+    
+    context = {'form':form}
+    return render(request,'account/TeacherSignUp.html',context)

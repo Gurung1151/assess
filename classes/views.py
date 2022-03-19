@@ -45,7 +45,7 @@ def createClass(request):
         form = classForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('admin_homepage')
+            return redirect('classes',request.user.id)
 
     context = {'form':form}
     return render(request,'classes/class_form.html',context)
@@ -72,12 +72,15 @@ def deleteClass(request,pk):
     context = {'object':getClass}
     return render(request,'classes/delete_template.html',context)
 
-def teacherClasses(request):
+#This is used in assessment  part of the teacher
+def teacherAssesments(request):
     classes = AssessmentMarks.objects.all()
     students = StudentData.objects.all()
     context = {'classes':classes,'students':students}
-    return render(request,'classes/teacherClasses.html',context)
+    return render(request,'classes/teacher_assessments.html',context)
 
+
+# these are not sure
 def view_assessment(request,pk):
     marksheet = AssessmentMarks.objects.get(getClass_id = pk)
     students = StudentData.objects.all()
@@ -105,3 +108,10 @@ def view(request,pk):
     students = StudentData.objects.all()
     context = {'marks':marks,'students':students}
     return render(request,'classes/view.html',context)
+
+#For teacher's classes
+
+def teacherClasses(request):
+    classes = classData.objects.all().filter(teacher_id=request.user.id)
+    context = {'classes':classes}
+    return render(request,'classes/teacher_classes.html',context)

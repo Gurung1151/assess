@@ -41,25 +41,28 @@ class AdminSignUpForm(UserCreationForm):
 
 class TeacherSignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    phone = forms.CharField(max_length=20, required=False)
-    address =forms.CharField(max_length=200, required=False)
+    
 
     class Meta(UserCreationForm.Meta):
         model = User
     
+    def __init__(self, *args, **kwargs) :
+        super(TeacherSignUpForm,self).__init__(*args, **kwargs)
     
-    @transaction.atomic
+        for name,  field in self.fields.items():
+            field.widget.attrs.update({'class':'input'})
+    # @transaction.atomic
     
-    def save(self):
-     user = super().save(commit=False)
-     user.is_teacher = True
-     user.email = self.cleaned_data.get('email')
-     user.save()
-     teacher_object = Teacher.objects.create(user=user)
-     teacher_object.phone = self.cleaned_data.get('phone')
-     teacher_object.address = self.cleaned_data.get('address')
-     teacher_object.save()
-     return user
+    # def save(self):
+    #  user = super().save(commit=False)
+    #  user.is_teacher = True
+    #  user.email = self.cleaned_data.get('email')
+    #  user.save()
+    #  teacher_object = Teacher.objects.create(user=user)
+    #  teacher_object.phone = self.cleaned_data.get('phone')
+    #  teacher_object.address = self.cleaned_data.get('address')
+    #  teacher_object.save()
+    #  return user
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=200)

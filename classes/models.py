@@ -58,7 +58,7 @@ class classData(models.Model):
     subjectName = models.CharField(max_length=200,blank =True,null=True)
     #syllabus = models.TextField(blank=True,null=True)
     #subjectAlias = models.CharField(max_length=20,blank=True,null=True)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE,null=True) 
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL,null=True) 
     #is_submitted = models.BooleanField(default=False)
     #is_approved = models.BooleanField(default=False)
 
@@ -119,7 +119,7 @@ class AssessmentMarks(models.Model):
 
 
 class StudentData(models.Model):
-    Batch = models.CharField(max_length=3,null=True)
+    Batch = models.CharField(max_length=4,null=True)
     Dept = models.CharField(max_length=3,null=True)
     Roll = models.CharField(max_length=3,null=True)
     Name = models.CharField(max_length=100,null=True)

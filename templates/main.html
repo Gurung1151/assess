@@ -1,32 +1,22 @@
 <!DOCTYPE html>
 {% load static %}
 <html> 
-<head>
-    <title>main</title>
-    <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+        <!-- Icon - IconMonster -->
+        <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" />
+        <!-- Mumble UI -->
+        <link rel="stylesheet" href="{% static 'uikit/styles/uikit.css'%}" />
+        <!-- Dev Search UI -->
+        <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+      
+        <title>Assess</title>
+      </head>
    
-    <body>
-        <p class="font-mono text-9xl">
-            {{text}}
-        </p>
-        <form>
-            <table>
-                <tr>
-                    <th>roll no.</th>
-                    <th>Name</th>
-                    <th>Marks</th>
-                </tr>
-                {% for student in students %}
-                    {% if student.Dept == "BCT" and student.Batch == "075" %}
-                        <tr>
-                             <td>{{student.Roll}}</td>
-                             <td>{{student.Name}}</td>
-                             <td><input type="text"></td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </table>
-        </form>
-    </body>
+   <h1>Hello</h1>
 </html>

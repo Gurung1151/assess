@@ -1,38 +1,47 @@
 <!DOCTYPE html>
-
-{%load static%}
-
-<!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="{%static 'css/dashboard.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/teacher_dashboard.css' %}" rel="stylesheet" />
     <title>Document</title>
+   <script type="text/javascript" src="{% static 'js/charts.js' %}"></script>
+   <script type="text/javascript">
+     google.charts.load("current", {packages:["corechart"]});
+     google.charts.setOnLoadCallback(drawChart);
+     function drawChart() {
+       var data = google.visualization.arrayToDataTable([
+         // these are ratios
+         ['Task', 'Hours per Day'],
+         ['Work',     13],
+         ['Eat',      2],
+         ['Commute',  2],
+         ['Watch TV', 2],
+         ['Sleep',    7]
+       ]);
+
+       var options = {
+        //  title: 'Assignments',
+         pieHole: 0.4,
+       };
+
+       var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+       chart.draw(data, options);
+     }
+   </script>
   </head>
   <body>
     <article class="flex flex-row">
       <section
         class="relative flex flex-col justify-between w-1/6 h-screen bg-gradient-to-b from-green-300 to-green-600"
       >
-        <!-- centralize profile icon -->
         <div class="flex items-center justify-center">
-          <!-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-24 h-24 mt-9"
-            style="enable-background: new"
-            viewbox="0 0 45.532 45.532"
-            xml:space="preserve"
-          >
-            <path
-              d="M22.766.001C10.194.001 0 10.193 0 22.766s10.193 22.765 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001zm0 6.807a7.53 7.53 0 1 1 .001 15.06 7.53 7.53 0 0 1-.001-15.06zm-.005 32.771a16.708 16.708 0 0 1-10.88-4.012 3.209 3.209 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.702 16.702 0 0 1-10.881 4.013z"
-            />
-          </svg> -->
           <div class="w-32 h-32 mt-9">
             <img
               class="inset-0 object-cover object-center w-full h-full rounded-full"
-              src="{{request.user.profile_pic.url}}"
+              src="{{ request.user.profile_pic.url }}"
               alt=""
             />
           </div>
@@ -40,12 +49,89 @@
         <section
           class="flex flex-col items-center justify-between mb-[6.5rem] h-60"
         >
-          <a href="{%url 'teacher_homepage' %}">Dashboard</a>
-          <a href="{% url 'teacherClasses'%}" class="">Assessments</a>
-          <a href="#">Profile</a>
-          <a href="#">Classes</a>
+        <div class="h-12 py-2 text-center bg-white lg:w-36 w-28 rounded-xl">
+          <a href="{% url 'teacher_homepage' %}" class="text-2xl font-semibold tracking-wider">
+            <div class="flex flex-row lg:ml-4">
+          
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10 6H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-5m-4 0V5a2 2 0 1 1 4 0v1m-4 0a2 2 0 1 0 4 0m-5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 0 0-2.83 2M15 11h3m-3 4h2"
+              />
+            </svg>
+              Dashboard
+            </div>
+          </a>
+        </div>
+       
+        <a href="{% url 'teacher-classes' %}">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="inline-block w-6 h-6 mt-[.15rem]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"
+                  />
+                </svg>
+                <!-- classes:user-group -->
+                <!-- teachers:user -->
+                <!-- assignments: book-open -->
+                Classes
+                </a>
+              
+          <a href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm-4 7a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7z"
+              /></svg
+            >Profile</a
+          >
+          <a href="{% url 'teacherAssessments' %}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="inline-block w-6 h-6 mb-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+            Assessments</a
+          >
         </section>
+        
+
+        
         <section class="mx-auto mb-11">
+          <a href="{% url 'logoutPage' %}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="inline-block w-6 h-6"
@@ -61,313 +147,194 @@
             />
           </svg>
           Logout
+        </a>
         </section>
+      
       </section>
-      <section class="flex-grow h-screen overflow-auto px-[3.5rem]">
-        <div class="flex flex-col mt-[8.5rem]">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full">
-                  <thead class="border-b">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Year
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Part
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Group
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Batch
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Name
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Teacher
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Subject
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      ></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        1
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Mark
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Otto
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        @mdo
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        bishant
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        bishant
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        bishant
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        <div
-                          class="w-16 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
-                        >
-                          VIEW
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b">
-                      <td
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        2
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Jacob
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Thornton
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        @fat
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b">
-                      <td
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        3
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Larry
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Wild
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        @twitter
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+      </section>
+      <section class="flex-grow h-screen px-3 overflow-auto ">
+        <section class="flex justify-center gap-4">
+          <div class="">
+            <div
+              class="relative flex items-center justify-center w-24 h-10 rounded-t-lg top-5 mt-28 bg-gradient-to-r from-green-300 to-green-600"
+            >
+              <h1 class="">Submitted</h1>
+            </div>
+            <div class="flex flex-col mt-5">
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full">
+                      <thead class="border-b">
+                        <tr>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Year
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Part
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Group
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Batch
+                          </th>
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Subject
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          ></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% if submitted.getClass.teacher.user_id == request.user.id%}
+                        {% for class in submitted%}
+                        <tr class="border-b">
+                          <td
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.year}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.part}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.group}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.batch}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.subjectName}}
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="flex flex-col mt-[8.5rem]">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full">
-                  <thead class="border-b">
-                    <tr>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Year
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Part
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Group
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Batch
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Name
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Teacher
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      >
-                        Subject
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-4 font-medium text-left text-gray-900"
-                      ></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        1
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Mark
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Otto
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        @mdo
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        bishant
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        bishant
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        bishant
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        <div
-                          class="w-16 mt-[.05rem] font-semibold h-7 rounded-md mr-5 tracking-wider p-1 px-[.9rem] bg-green-600 text-slate-100"
-                        >
-                          VIEW
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b">
-                      <td
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        2
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Jacob
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Thornton
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        @fat
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b">
-                      <td
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        3
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Larry
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        Wild
-                      </td>
-                      <td
-                        class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
-                      >
-                        @twitter
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div>
+            <div
+              class="relative flex items-center justify-center h-10 rounded-t-lg w-28 top-5 mt-28 bg-gradient-to-r from-green-300 to-green-600"
+            >
+              <h1 class="">Unsubmitted</h1>
+            </div>
+            <div class="flex flex-col mt-5">
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full">
+                      <thead class="border-b">
+                        <tr>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Year
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Part
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Group
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Batch
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          >
+                            Subject
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-6 py-4 font-medium text-left text-gray-900"
+                          ></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% if not_submitted.getClass.teacher.user_id == request.user.id%}
+                        {% for class in submitted%}
+                        <tr class="border-b">
+                          <td
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.year}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.part}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.group}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.batch}}
+                          </td>
+                          <td
+                            class="px-6 py-4 font-light text-gray-900 whitespace-nowrap"
+                          >
+                            {{class.getClass.subjectName}}
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+        <div class="w-full">
+      <div id="donutchart" class="h-[40rem] w-1/2 shadow-lg"></div>
+</div>  
       </section>
     </article>
   </body>
